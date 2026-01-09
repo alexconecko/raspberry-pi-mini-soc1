@@ -10,7 +10,6 @@ Reduces vulnerabilities from outdated packages and provides baseline protection 
 Opens only necessary ports and enables the firewall to enforce network restrictions.
 ```
 sudo ufw allow ssh
-sudo ufw allow 5601/tcp   # Wazuh dashboard
 sudo ufw enable
 ```
 Limits exposure to external attackers, ensuring only required services are accessible.
