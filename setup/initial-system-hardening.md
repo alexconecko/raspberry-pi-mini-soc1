@@ -16,6 +16,8 @@ sudo ufw enable
 ```
 Limits exposure to external attackers, ensuring only required services are accessible.
 
+Verify settings with `sudo ufw status verbose`
+
 ## Create SOC user
 Creates a dedicated administrative account for SOC operations and grants sudo privileges.
 ```
