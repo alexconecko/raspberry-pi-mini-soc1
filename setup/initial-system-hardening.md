@@ -36,14 +36,6 @@ ssh-keygen -t ed25519
 - File location: Enter (default)
 - Passphrase: Enter (empty for now)
 
-Verify:
-```
-dir %USERPROFILE%\.ssh
-```
-You must see:
-- id_ed25519
-- id_ed25519.pub
-
 Install Public Key on Pi
 On Windows:
 ```
