@@ -64,8 +64,21 @@ Add under default job:
 sudo systemctl restart promtail
 sudo systemctl status promtail
 ```
-Check Promtail logs:
+
+### If you have issues such as job not being ready in dashboard
+
+Make the file owned by the Promtail user (without specifying group):
 ```
-sudo journalctl -u promtail -f
+sudo chown promtail /home/cowrie/cowrie/var/log/cowrie/cowrie.json
 ```
+Add directory execute permissions so Promtail can traverse:
+```
+sudo chmod o+x /home/cowrie
+sudo chmod o+x /home/cowrie/cowrie
+sudo chmod o+x /home/cowrie/cowrie/var
+sudo chmod o+x /home/cowrie/cowrie/var/log
+sudo chmod o+x /home/cowrie/cowrie/var/log/cowrie
+```
+Then restart and verify.
+
 
