@@ -3,6 +3,12 @@ As mentioned in Loki Setup: Promtail will be EOL as of March 2026, docs referenc
 
 For our purposes, and ease of install I will simply install Promtail manually.
 
+### PREP
+Open the Promtail dashboard port:
+```
+sudo ufw allow 9080/tcp
+```
+
 ### Install Procedure
 Since our systems is Ubuntu/Debian based:
 
@@ -62,4 +68,4 @@ Check Promtail logs:
 ```
 sudo journalctl -u promtail -f
 ```
-Look for lines like `POST /loki/api/v1/push 200 OK` → that means logs are successfully shipped.
+
