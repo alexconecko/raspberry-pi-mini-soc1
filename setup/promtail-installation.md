@@ -7,6 +7,7 @@ For our purposes, and ease of install I will simply install Promtail manually.
 Open the Promtail dashboard port:
 ```
 sudo ufw allow 9080/tcp
+sudo ufw allow 9081/tcp
 ```
 
 ### Install Procedure
