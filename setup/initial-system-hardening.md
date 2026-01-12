@@ -89,3 +89,6 @@ Disables login for the original Pi user, leaving only the SOC user active.
 sudo passwd -l USERNAME      # The name you initially set your Pi should replace USERNAME
 ```
 Prevents unauthorized access via default credentials and ensures all SSH access is controlled through a hardened, monitored account.
+
+## Static Lease
+You might consider creating a static lease for the Pi.
