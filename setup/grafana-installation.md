@@ -39,6 +39,10 @@ sudo ufw status
 ```
 http://localhost:3100
 ```
+As Grafana is running on the same Pi as Loki you can point the data source to **localhost**.
+
+This is because Grafana can talk directly to Loki on the same machine.
+
 5. Click Save & Test
    - Should say "Data source successfully connected."
 
