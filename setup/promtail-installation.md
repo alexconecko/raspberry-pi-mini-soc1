@@ -65,6 +65,30 @@ sudo systemctl restart promtail
 sudo systemctl status promtail
 ```
 
+## Make Promtail use different ports permanently (avoid dashboard issues later)
+Edit your Promtail systemd service so it always uses unused ports.
+
+1. Open the service override:
+```
+sudo systemctl edit promtail
+```
+
+2. Add the override so it runs Promtail with explicit ports
+```
+[Service]
+ExecStart=
+ExecStart=/usr/bin/promtail -config.file /etc/promtail/config.yml -log.level=info -server.http-listen-port=9081 -server.grpc-listen-port=36294
+```
+The first `ExecStart=` line clears the original one, the second sets your custom command.
+
+3. Reload systemd and restart Promtail:
+```
+sudo systemctl daemon-reload
+sudo systemctl restart promtail
+sudo systemctl status promtail
+```
+From now on, it will always start on boot using these ports, no conflicts.
+
 # If you have issues such as job not being ready in dashboard
 
 Make the file owned by the Promtail user (without specifying group):
