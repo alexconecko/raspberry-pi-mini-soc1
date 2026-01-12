@@ -65,7 +65,7 @@ sudo systemctl restart promtail
 sudo systemctl status promtail
 ```
 
-### If you have issues such as job not being ready in dashboard
+# If you have issues such as job not being ready in dashboard
 
 Make the file owned by the Promtail user (without specifying group):
 ```
@@ -90,4 +90,46 @@ curl -G http://localhost:3100/loki/api/v1/query_range \
 - If it's empty, check Promtail logs again and make sure the tailer seeked from
   the beginning on first run.
 
+# If after this you have issues with dashboards not populating
+Check the file and directory permissions:
+```
+ls -l /home/cowrie/cowrie/var/log/cowrie/
+```
+You'll likely see that `cowrie.json` is not writable by the user running Cowrie (`cowrie` user)
+
+1. Fix ownership:
+Assuming you run Cowrie as cowrie:cowrie (the usual setup):
+
+```
+sudo chown -R cowrie:cowrie /home/cowrie/cowrie/var/log/cowrie
+```
+
+This makes the directory and all files inside writable by the Cowrie user.
+
+2. Fix permissions:
+Change ownership of the JSON log so Cowrie can write:
+```
+sudo chown cowrie:cowrie /home/cowrie/cowrie/var/log/cowrie/cowrie.json
+```
+Double-check permissions (owner must have write access):
+```
+sudo chmod 640 /home/cowrie/cowrie/var/log/cowrie/cowrie.json
+```
+- 640 → owner can read/write, group can read, others no access
+- That’s enough for Cowrie (cowrie) to write and Promtail (promtail) to read if promtail is in the cowrie group (optional).
+
+3. Add Promtail to `cowrie` group so it can read:
+   ```
+   sudo usermod -aG cowrie promtail
+   ```
+
+4. Restart service:
+   ```
+   sudo systemctl restart promtail
+   ```
+   
+5. Test reading as `socadmin`:
+   ```
+   sudo tail -f /home/cowrie/cowrie/var/log/cowrie/cowrie.json
+   ```
 
