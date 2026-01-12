@@ -50,7 +50,31 @@ Alloy needs a .yaml file to successfully ingest the cowrie logs.
       ]
     }
 
+   //NON DEFAULT CONFIG
+   filelog.receiver "cowrie" {
+     include = ["/home/cowrie/cowrie/var/log/cowrie/cowrie.json"]
+     start_at = "end_of_file"
+     include_file_path = false
+   }
+   
+   loki.exporter "cowrie_loki" {
+     endpoint = "http://localhost:3100/loki/api/v1/push"
+     labels = ["job=cowrie"]
+   }
+   
+   pipeline "cowrie_pipeline" {
+     receivers = ["cowrie"]
+     exporters = ["cowrie_loki"]
+   }
    ```
+### ENSURE LOG FILE EXISTS
+Even an empty file must exist before Alloy starts. Alloy does not create it.
+```
+sudo touch /home/cowrie/cowrie/var/log/cowrie/cowrie.json
+sudo chown alloy:alloy /home/cowrie/cowrie/var/log/cowrie/cowrie.json
+sudo chmod 644 /home/cowrie/cowrie/var/log/cowrie/cowrie.json
+```
+   
 ### PERMISSIONS
 Ensure Alloy can read the log file:
 ```
