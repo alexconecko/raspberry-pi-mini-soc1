@@ -18,11 +18,18 @@ wget https://github.com/grafana/loki/releases/download/v3.6.3/promtail_3.6.3_arm
 
 ```
 sudo dpkg -i promtail_3.6.3_arm64.deb
-sudo systemctl enable promtail
-sudo systemctl start promtail
-sudo systemctl status promtail
 ```
 If there are missing dependencies, fix with:
 ```
 sudo apt-get install -f
 ```
+
+## Enable & Start Promtail
+```
+sudo systemctl enable promtail
+sudo systemctl start promtail
+sudo systemctl status promtail
+```
+You should now see the service as active.
+
+On installation, generally it automatically sets itself to start at boot.
