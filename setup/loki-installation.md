@@ -6,6 +6,12 @@ Note: Promtail will be EOL as of March 2026, docs reference installing `Promtail
 not work. `Alloy` has effectively replaced Promtail as Alloy serves as a unified agent for logs, 
 metrics, and traces, offering more flexibility and future-proofing.
 
+## Back up the config file
+```
+sudo cp /etc/loki/config.yml /etc/loki/config.yml.bak
+```
+This way you can recover instantly if something goes wrong.
+
 ## Note
 
 Loki should run as a system service (```systemd```), it starts automatically at boot,
