@@ -12,6 +12,11 @@ sudo cp /etc/loki/config.yml /etc/loki/config.yml.bak
 ```
 This way you can recover instantly if something goes wrong.
 
+## CONFIG FILE
+- Set logging to `info` (`debug` can be overly verbose)
+- Storage is in `/tmp/loki`, meaning everything is lost on reboot.
+  - TODO: look into persistence
+
 ## Note
 
 Loki should run as a system service (```systemd```), it starts automatically at boot,
