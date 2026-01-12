@@ -57,29 +57,34 @@ For the purposes of this project we will switch editor to "Code" (do not use Bui
 **Paste these EXACT queries:**
 
 SSH Login Attempts Over Time
-Panel type: Time series
+
+*Panel type: Time series*
 ```
-count_over_time({job="cowrie"} | json | eventid="login" [1m])
+count_over_time({job="cowrie"} |= "login" [1m])
 ```
 Top Source IPs
-Panel type: Bar chart
+
+*Panel type: Bar chart*
 ```
-topk(10, count_over_time({job="cowrie"} | json | src_ip!="" [1h]))
+topk(5, sum by (src_ip) (count_over_time({job="cowrie"} |= "login" [1h])))
 ```
 Top Usernames
-Panel type: Bar Chart (Horizontal)
+
+*Panel type: Bar Chart (Horizontal)*
 ```
-topk(10, count_over_time({job="cowrie"} | json | username!="" [1h]))
+topk(5, sum by (username) (count_over_time({job="cowrie"} |= "login" [1h])))
 ```
 Commands Executed
-Panel type: Table
+
+*Panel type: Table*
 ```
-count_over_time({job="cowrie"} | json | eventid="cowrie.command.input" [1h])
+topk(5, sum by (input) (count_over_time({job="cowrie"} |= "input" [1h])))
 ```
 Session Counts
-Panel type: Time series
+
+*Panel type: Time series*
 ```
-count_over_time({job="cowrie"} | json | eventid="cowrie.session.closed" [1h])
+count_over_time({job="cowrie"} |= "session.closed" [1m])
 ```
 
 
